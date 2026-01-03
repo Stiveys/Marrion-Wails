@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Hero from '@/components/sections/Hero';
 import ServiceCard from '@/components/common/ServiceCard';
 import { motion } from 'framer-motion';
-import { 
-  Car, 
-  Heart, 
-  Shield, 
-  Briefcase, 
-  TrendingUp, 
+import {
+  Car,
+  Heart,
+  Shield,
+  Briefcase,
+  TrendingUp,
   Users,
   Tractor,
   Plane,
@@ -46,10 +46,10 @@ const Services: React.FC = () => {
 
     // Handle initial load
     setTimeout(handleAnchorScroll, 100);
-    
+
     // Handle route changes
     window.addEventListener('hashchange', handleAnchorScroll);
-    
+
     return () => {
       window.removeEventListener('hashchange', handleAnchorScroll);
     };
@@ -66,7 +66,7 @@ const Services: React.FC = () => {
           description: "Complete protection for your vehicles with flexible coverage options and competitive rates.",
           features: [
             "Comprehensive Cover",
-            "Third Party Insurance", 
+            "Third Party Insurance",
             "Theft Protection",
             "Fire & Accident Coverage",
             "Quick Claims Processing",
@@ -434,6 +434,8 @@ const Services: React.FC = () => {
         </div>
       </section>
 
+
+
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-cyan-600 to-cyan-800 text-white">
         <div className="container mx-auto px-4 text-center">
@@ -447,7 +449,7 @@ const Services: React.FC = () => {
               Ready to Get Covered?
             </h2>
             <p className="text-xl text-cyan-100 leading-relaxed">
-              Don't wait until it's too late. Get comprehensive insurance coverage today and enjoy peace of mind 
+              Don't wait until it's too late. Get comprehensive insurance coverage today and enjoy peace of mind
               knowing that you, your family, and your assets are protected by Kenya's most trusted insurance agency.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

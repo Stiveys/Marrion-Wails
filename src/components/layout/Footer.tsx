@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
               </div>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
-              Your Safety Net for Life's Uncertainties. We provide comprehensive insurance 
+              Your Safety Net for Life's Uncertainties. We provide comprehensive insurance
               and financial solutions tailored to your needs with integrity and transparency.
             </p>
             <div className="flex space-x-4">
@@ -62,8 +62,8 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               {services.map((service, index) => (
                 <li key={index}>
-                  <Link 
-                    to={service.href} 
+                  <Link
+                    to={service.href}
                     className="text-gray-300 hover:text-cyan-400 transition-colors text-sm hover:underline"
                   >
                     {service.name}
@@ -79,8 +79,8 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <Link 
-                    to={link.href} 
+                  <Link
+                    to={link.href}
                     className="text-gray-300 hover:text-cyan-400 transition-colors text-sm hover:underline"
                   >
                     {link.name}
@@ -89,6 +89,8 @@ const Footer: React.FC = () => {
               ))}
             </ul>
           </div>
+
+
 
           {/* Contact Info */}
           <div className="space-y-4">

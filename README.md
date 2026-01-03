@@ -116,7 +116,7 @@ The website is fully responsive with breakpoints:
 - **Phone**: 0700 432 010 | 0794 586 562
 - **Email**: mwinsuranceagency@gmail.com
 - **Location**: Nairobi, Kenya
-- **Business Hours**: 
+- **Business Hours**:
   - Monday - Friday: 8:00 AM - 5:00 PM
   - Saturday: 9:00 AM - 1:00 PM
 
@@ -157,9 +157,6 @@ Create a `.env` file in the root directory:
 VITE_SITE_URL=https://marrionwailsinsuranceagency.co.ke
 VITE_CONTACT_EMAIL=mwinsuranceagency@gmail.com
 VITE_CONTACT_PHONE=+254700432010
-RESEND_API_KEY=your_resend_api_key
-EMAIL_FROM=no-reply@yourdomain.com
-LOG_WEBHOOK_URL=https://example.com/quote-log-webhook
 ```
 
 ### Customization
@@ -168,36 +165,7 @@ LOG_WEBHOOK_URL=https://example.com/quote-log-webhook
 - **Content**: Update page components in `src/pages/`
 - **Components**: Customize reusable components in `src/components/`
 
-## 📤 Quote Forwarding
 
-- Client submissions are forwarded to `mwinsuranceagency@gmail.com`
-- Endpoint: `POST /api/forward-quote` (Edge runtime)
-- Validates required fields and sanitizes input
-- Uses Resend API for reliable email delivery
-- Honeypot field `website` deters basic spam bots
-- Optional webhook logging via `LOG_WEBHOOK_URL`
-
-### Sample Payload
-```json
-{
-  "firstName": "Jane",
-  "lastName": "Doe",
-  "email": "jane@example.com",
-  "phone": "+254700000000",
-  "idNumber": "12345678",
-  "dateOfBirth": "1990-01-01",
-  "insuranceType": "motor",
-  "coverageAmount": "1000000-5000000",
-  "vehicleMake": "Toyota",
-  "vehicleModel": "Corolla",
-  "vehicleYear": "2020",
-  "vehicleValue": "1500000",
-  "additionalInfo": "Any other details...",
-  "preferredContact": "email",
-  "urgency": "soon",
-  "website": ""
-}
-```
 
 ## 📊 Performance
 
