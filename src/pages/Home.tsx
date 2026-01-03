@@ -3,12 +3,12 @@ import Hero from '@/components/sections/Hero';
 import ServiceCard from '@/components/common/ServiceCard';
 import TestimonialCard from '@/components/common/TestimonialCard';
 import { motion } from 'framer-motion';
-import { 
-  Car, 
-  Heart, 
-  Shield, 
-  Briefcase, 
-  TrendingUp, 
+import LogoMarquee from '@/components/common/LogoMarquee';
+import {
+  Car,
+  Heart,
+  Shield,
+  Briefcase,
   Users,
   CheckCircle,
   Clock,
@@ -120,6 +120,22 @@ const Home: React.FC = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <Hero />
+
+      <section className="py-12 bg-white transition-colors">
+        <div className="container mx-auto px-4">
+          <LogoMarquee
+            endpoint="/provider-logos.json"
+            height={40}
+            gap={32}
+            speed={80}
+            direction="left"
+            pauseOnHover
+            swipeEnabled
+            ariaLabel="Health insurance provider logos"
+            className="py-2"
+          />
+        </div>
+      </section>
 
       {/* Services Overview */}
       <section className="py-20 bg-gray-50">
@@ -299,7 +315,7 @@ const Home: React.FC = () => {
               Ready to Get Protected?
             </h2>
             <p className="text-xl text-cyan-100 leading-relaxed">
-              Join thousands of satisfied clients who trust Marrion Wails Insurance Agency for their insurance needs. 
+              Join thousands of satisfied clients who trust Marrion Wails Insurance Agency for their insurance needs.
               Get your personalized quote today and experience the difference of working with Kenya's most reliable insurance agency.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

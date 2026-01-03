@@ -1,0 +1,32 @@
+[
+  {
+    "src": "https://jubileeinsurance.com/ke/wp-content/themes/jubilee/assets/images/jubilee-logo.png",
+    "alt": "Jubilee Insurance",
+    "fallback": "https://www.google.com/s2/favicons?domain=jubileeinsurance.com&sz=128"
+  },
+  {
+    "src": "https://ke.britam.com/templates/cassiopeia/images/logo.png",
+    "alt": "Britam",
+    "fallback": "https://www.google.com/s2/favicons?domain=britam.com&sz=128"
+  },
+  {
+    "src": "https://www.google.com/s2/favicons?domain=cigna.com&sz=128",
+    "alt": "Cigna Africa",
+    "fallback": "https://logo.clearbit.com/cigna.com"
+  },
+  {
+    "src": "https://www.google.com/s2/favicons?domain=oldmutual.co.ke&sz=128",
+    "alt": "Old Mutual",
+    "fallback": "https://logo.clearbit.com/oldmutual.com"
+  },
+  {
+    "src": "https://www.google.com/s2/favicons?domain=aar-insurance.com&sz=128",
+    "alt": "AAR Insurance",
+    "fallback": "https://logo.clearbit.com/aar-insurance.com"
+  },
+  {
+    "src": "https://www.google.com/s2/favicons?domain=nhif.or.ke&sz=128",
+    "alt": "NHIF",
+    "fallback": "https://logo.clearbit.com/nhif.or.ke"
+  }
+]

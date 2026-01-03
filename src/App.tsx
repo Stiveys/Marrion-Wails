@@ -9,7 +9,7 @@ import Contact from "@/pages/Contact";
 
 function AppLayout() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
       <main className="flex-grow">
         <Routes>
