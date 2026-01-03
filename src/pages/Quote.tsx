@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Hero from '@/components/sections/Hero';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
-import {
-  User,
-  Car,
-  Home,
+import { 
+  User, 
+  Car, 
+  Home, 
   Heart,
   Briefcase,
   DollarSign,
@@ -24,11 +24,11 @@ interface FormData {
   idNumber: string;
   dateOfBirth: string;
   website?: string;
-
+  
   // Step 2: Insurance Type
   insuranceType: string;
   coverageAmount: string;
-
+  
   // Step 3: Specific Details
   vehicleMake?: string;
   vehicleModel?: string;
@@ -38,7 +38,7 @@ interface FormData {
   propertyValue?: string;
   healthCoverType?: string;
   businessType?: string;
-
+  
   // Step 4: Additional Information
   additionalInfo: string;
   preferredContact: string;
@@ -50,10 +50,10 @@ const Quote: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-
-  const {
-    register,
-    handleSubmit,
+  
+  const { 
+    register, 
+    handleSubmit, 
     watch,
     formState: { errors },
     trigger
@@ -69,27 +69,27 @@ const Quote: React.FC = () => {
   ];
 
   const insuranceTypes = [
-    {
-      id: "motor",
-      title: "Motor Vehicle Insurance",
+    { 
+      id: "motor", 
+      title: "Motor Vehicle Insurance", 
       icon: Car,
       description: "Protect your vehicle with comprehensive coverage"
     },
-    {
-      id: "health",
-      title: "Health Insurance",
+    { 
+      id: "health", 
+      title: "Health Insurance", 
       icon: Heart,
       description: "Access quality healthcare when you need it"
     },
-    {
-      id: "property",
-      title: "Property Insurance",
+    { 
+      id: "property", 
+      title: "Property Insurance", 
       icon: Home,
       description: "Safeguard your home and belongings"
     },
-    {
-      id: "business",
-      title: "Business Insurance",
+    { 
+      id: "business", 
+      title: "Business Insurance", 
       icon: Briefcase,
       description: "Protect your business assets and operations"
     }
@@ -120,7 +120,7 @@ const Quote: React.FC = () => {
 
   const nextStep = async () => {
     let fieldsToValidate: string[] = [];
-
+    
     switch (currentStep) {
       case 1:
         fieldsToValidate = ['firstName', 'lastName', 'email', 'phone', 'idNumber', 'dateOfBirth'];
@@ -139,7 +139,7 @@ const Quote: React.FC = () => {
         }
         break;
     }
-
+    
     const isValid = await trigger(fieldsToValidate as (keyof FormData)[]);
     if (isValid) {
       setCurrentStep(prev => Math.min(prev + 1, 4));
@@ -173,7 +173,7 @@ const Quote: React.FC = () => {
                   <p className="text-red-500 text-sm mt-1">{errors.firstName.message}</p>
                 )}
               </div>
-
+              
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Last Name *
@@ -194,7 +194,7 @@ const Quote: React.FC = () => {
                 Email Address *
               </label>
               <input
-                {...register("email", {
+                {...register("email", { 
                   required: "Email is required",
                   pattern: {
                     value: /^\S+@\S+$/i,
@@ -239,7 +239,7 @@ const Quote: React.FC = () => {
                   <p className="text-red-500 text-sm mt-1">{errors.idNumber.message}</p>
                 )}
               </div>
-
+              
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Date of Birth *
@@ -344,7 +344,7 @@ const Quote: React.FC = () => {
                     <p className="text-red-500 text-sm mt-1">{errors.vehicleMake.message}</p>
                   )}
                 </div>
-
+                
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Vehicle Model *
@@ -358,7 +358,7 @@ const Quote: React.FC = () => {
                     <p className="text-red-500 text-sm mt-1">{errors.vehicleModel.message}</p>
                   )}
                 </div>
-
+                
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Year of Manufacture *
@@ -375,7 +375,7 @@ const Quote: React.FC = () => {
                     <p className="text-red-500 text-sm mt-1">{errors.vehicleYear.message}</p>
                   )}
                 </div>
-
+                
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Current Vehicle Value (KES) *
@@ -392,7 +392,7 @@ const Quote: React.FC = () => {
                 </div>
               </div>
             )}
-
+            
             {insuranceType === 'health' && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -412,7 +412,7 @@ const Quote: React.FC = () => {
                 )}
               </div>
             )}
-
+            
             {insuranceType === 'property' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -432,7 +432,7 @@ const Quote: React.FC = () => {
                     <p className="text-red-500 text-sm mt-1">{errors.propertyType.message}</p>
                   )}
                 </div>
-
+                
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Property Value (KES) *
@@ -449,7 +449,7 @@ const Quote: React.FC = () => {
                 </div>
               </div>
             )}
-
+            
             {insuranceType === 'business' && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -553,7 +553,7 @@ const Quote: React.FC = () => {
           secondaryButtonText="View Other Services"
           showStats={false}
         />
-
+        
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4 text-center">
             <motion.div
@@ -565,11 +565,11 @@ const Quote: React.FC = () => {
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
                 <CheckCircle className="text-green-600" size={40} />
               </div>
-
+              
               <h2 className="text-3xl font-bold text-gray-900">
                 What Happens Next?
               </h2>
-
+              
               <div className="text-left space-y-4">
                 <div className="flex items-start space-x-4">
                   <div className="w-8 h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
@@ -578,7 +578,7 @@ const Quote: React.FC = () => {
                     <p className="text-gray-600">Our insurance experts will review your application and assess your specific needs.</p>
                   </div>
                 </div>
-
+                
                 <div className="flex items-start space-x-4">
                   <div className="w-8 h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
                   <div>
@@ -586,7 +586,7 @@ const Quote: React.FC = () => {
                     <p className="text-gray-600">We'll prepare a customized quote with the best coverage options for you.</p>
                   </div>
                 </div>
-
+                
                 <div className="flex items-start space-x-4">
                   <div className="w-8 h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
                   <div>
@@ -595,7 +595,7 @@ const Quote: React.FC = () => {
                   </div>
                 </div>
               </div>
-
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
                 <a
                   href="/"
@@ -680,7 +680,7 @@ const Quote: React.FC = () => {
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">
                     {steps[currentStep - 1].title}
                   </h2>
-
+                  
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <input
                       {...register("website")}
@@ -691,7 +691,7 @@ const Quote: React.FC = () => {
                       autoComplete="off"
                     />
                     {renderStepContent()}
-
+                    
                     {/* Navigation Buttons */}
                     <div className="flex justify-between mt-8">
                       <button
@@ -707,7 +707,7 @@ const Quote: React.FC = () => {
                         <ArrowLeft size={20} />
                         <span>Previous</span>
                       </button>
-
+                      
                       {currentStep < 4 ? (
                         <button
                           type="button"
