@@ -21,6 +21,9 @@ import {
 
 const Services: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('personal');
+  const [showCallModal, setShowCallModal] = useState(false);
+  const [selectedNumber, setSelectedNumber] = useState<string | null>(null);
+  const [callError, setCallError] = useState<string | null>(null);
 
   useEffect(() => {
     // Handle anchor scrolling when component mounts or route changes
@@ -54,6 +57,57 @@ const Services: React.FC = () => {
       window.removeEventListener('hashchange', handleAnchorScroll);
     };
   }, []);
+
+  const callNumbers = ['+254700432010', '+254794586562'];
+  const isMobile = () => /Android|iPhone|iPad|iPod|Phone|Mobile|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent || '');
+  const pickNumber = () => callNumbers[Math.floor(Math.random() * callNumbers.length)];
+  const logCallAttempt = (number: string, status: 'initiated' | 'fallback' | 'error', detail?: string) => {
+    const payload = {
+      at: new Date().toISOString(),
+      number,
+      status,
+      userAgent: navigator.userAgent || '',
+      detail: detail || null,
+    };
+    const url = (import.meta as unknown as { env?: Record<string, string> })?.env?.VITE_CALL_LOG_WEBHOOK;
+    if (url && typeof url === 'string' && url.length) {
+      fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(() => {});
+    } else {
+      console.log('call_attempt', payload);
+    }
+  };
+  const onSpeakClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.preventDefault();
+    setCallError(null);
+    const n = pickNumber();
+    setSelectedNumber(n);
+    setShowCallModal(true);
+  };
+  const initiateCall = async () => {
+    if (!selectedNumber) return;
+    setCallError(null);
+    try {
+      if (isMobile()) {
+        logCallAttempt(selectedNumber, 'initiated');
+        window.location.href = `tel:${selectedNumber}`;
+      } else {
+        setCallError('This device may not support direct calling. Please dial manually.');
+        logCallAttempt(selectedNumber, 'fallback', 'non-mobile');
+      }
+    } catch {
+      setCallError('Unable to initiate the call. Please dial manually.');
+      logCallAttempt(selectedNumber, 'error', 'unknown');
+    }
+  };
+  const copyNumber = async () => {
+    if (!selectedNumber) return;
+    try {
+      await navigator.clipboard.writeText(selectedNumber);
+      setCallError('Number copied to clipboard. Please dial manually.');
+    } catch {
+      setCallError('Copy failed. Please dial manually.');
+    }
+  };
 
   const serviceCategories = {
     personal: {
@@ -461,8 +515,10 @@ const Services: React.FC = () => {
                 <ArrowRight size={20} />
               </a>
               <a
-                href="/contact"
+                href="#call"
+                onClick={onSpeakClick}
                 className="inline-flex items-center justify-center space-x-2 border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-cyan-600 transition-all"
+                aria-label="Speak to an agent"
               >
                 <span>Speak to an Expert</span>
               </a>
@@ -470,6 +526,66 @@ const Services: React.FC = () => {
           </motion.div>
         </div>
       </section>
+      {showCallModal && (
+        <div className="fixed inset-0 z-50" role="dialog" aria-modal="true">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setShowCallModal(false)} />
+          <div className="relative z-10 max-w-lg mx-auto mt-24 bg-white rounded-xl shadow-2xl p-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Call Our Customer Service</h3>
+            <p className="text-gray-700 mb-4">Choose a number or let us pick one for you:</p>
+            <div className="grid grid-cols-1 gap-3 mb-6">
+              <button
+                type="button"
+                className={`w-full border rounded-lg px-4 py-3 text-left ${selectedNumber === callNumbers[0] ? 'border-cyan-600' : 'border-gray-300'}`}
+                onClick={() => setSelectedNumber(callNumbers[0])}
+              >
+                0700 432 010
+              </button>
+              <button
+                type="button"
+                className={`w-full border rounded-lg px-4 py-3 text-left ${selectedNumber === callNumbers[1] ? 'border-cyan-600' : 'border-gray-300'}`}
+                onClick={() => setSelectedNumber(callNumbers[1])}
+              >
+                0794 586 562
+              </button>
+            </div>
+            <div className="flex items-center justify-between">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-cyan-600 to-cyan-700 text-white px-6 py-3 rounded-lg font-semibold hover:from-cyan-700 hover:to-cyan-800 transition-all"
+                onClick={initiateCall}
+              >
+                <span>Call Now</span>
+              </button>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  className="px-4 py-3 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+                  onClick={copyNumber}
+                >
+                  Copy Number
+                </button>
+                <button
+                  type="button"
+                  className="px-4 py-3 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+                  onClick={() => { setSelectedNumber(pickNumber()); }}
+                >
+                  Pick Random
+                </button>
+              </div>
+            </div>
+            {callError && (
+              <p className="mt-4 text-sm text-red-600" aria-live="polite">{callError}</p>
+            )}
+            <button
+              type="button"
+              className="mt-6 w-full px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+              onClick={() => setShowCallModal(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
