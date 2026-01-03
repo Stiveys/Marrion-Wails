@@ -46,7 +46,7 @@ const Hero: React.FC<HeroProps> = ({
             className="space-y-8"
           >
             <div className="space-y-4">
-              <motion.h1
+              <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -54,7 +54,7 @@ const Hero: React.FC<HeroProps> = ({
               >
                 {title}
               </motion.h1>
-
+              
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -63,7 +63,7 @@ const Hero: React.FC<HeroProps> = ({
               >
                 {subtitle}
               </motion.h2>
-
+              
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -88,7 +88,7 @@ const Hero: React.FC<HeroProps> = ({
                 <span>{primaryButtonText}</span>
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
               </Link>
-
+              
               <Link
                 to="/services"
                 className="border-2 border-cyan-400 text-cyan-400 px-8 py-4 rounded-lg font-semibold hover:bg-cyan-400 hover:text-gray-900 transition-all text-center"
