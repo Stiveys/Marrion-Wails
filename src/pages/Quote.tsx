@@ -4,8 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import {
   User,
-  Phone,
-  Mail,
   Car,
   Home,
   Heart,
@@ -50,6 +48,7 @@ const Quote: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -97,13 +96,25 @@ const Quote: React.FC = () => {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    console.log('Form submitted:', data);
-    setSubmitSuccess(true);
-    setIsSubmitting(false);
+    setSubmitError(null);
+    try {
+      const resp = await fetch('/api/forward-quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, website: '' }),
+      });
+      const body = await resp.json();
+      if (!resp.ok || !body?.success) {
+        setSubmitError(body?.error || 'Failed to submit quote. Please try again later.');
+        setIsSubmitting(false);
+        return;
+      }
+      setSubmitSuccess(true);
+    } catch {
+      setSubmitError('Network error. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const nextStep = async () => {
@@ -128,7 +139,7 @@ const Quote: React.FC = () => {
         break;
     }
 
-    const isValid = await trigger(fieldsToValidate as any);
+    const isValid = await trigger(fieldsToValidate as (keyof FormData)[]);
     if (isValid) {
       setCurrentStep(prev => Math.min(prev + 1, 4));
     }
@@ -718,6 +729,9 @@ const Quote: React.FC = () => {
                       )}
                     </div>
                   </form>
+                  {submitError && (
+                    <p className="mt-4 text-red-600 text-sm">{submitError}</p>
+                  )}
                 </motion.div>
               </AnimatePresence>
             </div>
